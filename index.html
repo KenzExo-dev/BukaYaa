@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Secret Code 🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #070913;        
+            --card-bg: rgba(18, 24, 41, 0.85); 
+            --text-color: #f8fafc;      
+            --accent-color: #fb7185;    
+            --accent-gradient: linear-gradient(135deg, #f43f5e, #fb7185);
+            --btn-text: #ffffff;        
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #070913, #171026, #2d1226);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(244, 63, 94, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            box-sizing: border-box;
+            animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(251, 113, 133, 0.45);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+            z-index: 1;
+            user-select: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        .lock-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #f1f5f9;
+        }
+
+        .lock-hint {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .pin-display {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .pin-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .pin-dot.filled {
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .key:active {
+            background: var(--accent-color);
+            transform: scale(0.9);
+        }
+
+        .error-msg {
+            color: #f43f5e;
+            font-size: 0.8rem;
+            min-height: 20px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        #main-content {
+            display: none;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid var(--accent-color);
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.5);
+            animation: pulseAvatar 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseAvatar {
+            0%, 100% { box-shadow: 0 0 20px rgba(244, 63, 94, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(244, 63, 94, 0.7); }
+        }
+
+        .text-box {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.5;
+            margin: 0;
+            color: #f1f5f9;
+        }
+
+        .spotify-player {
+            margin-bottom: 15px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            min-height: 105px;
+        }
+
+        .btn-group-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn {
+            background: var(--accent-gradient);
+            color: var(--btn-text);
+            border: none;
+            padding: 11px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.45);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+            max-width: 140px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(244, 63, 94, 0.65);
+        }
+
+        #btn-no {
+            background: rgba(255, 255, 255, 0.06);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .success-msg {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+    <div class="heart" style="left: 30%; animation-delay: 2s;">🤍</div>
+    <div class="heart" style="left: 55%; animation-delay: 1s;">💖</div>
+    <div class="heart" style="left: 80%; animation-delay: 3.5s;">✨</div>
+
+    <div class="card">
+        
+        <!-- BAGIAN 1: LOCK SCREEN PIN ANGKA -->
+        <div id="lock-screen">
+            <h2 class="lock-title">🔐 Enter Secret PIN</h2>
+            <p class="lock-hint">Petunjuk: Ketik angka **143**</p>
+            
+            <div class="pin-display">
+                <div class="pin-dot" id="dot-0"></div>
+                <div class="pin-dot" id="dot-1"></div>
+                <div class="pin-dot" id="dot-2"></div>
+            </div>
+
+            <div class="keypad">
+                <div class="key" onclick="pressKey('1')">1</div>
+                <div class="key" onclick="pressKey('2')">2</div>
+                <div class="key" onclick="pressKey('3')">3</div>
+                <div class="key" onclick="pressKey('4')">4</div>
+                <div class="key" onclick="pressKey('5')">5</div>
+                <div class="key" onclick="pressKey('6')">6</div>
+                <div class="key" onclick="pressKey('7')">7</div>
+                <div class="key" onclick="pressKey('8')">8</div>
+                <div class="key" onclick="pressKey('9')">9</div>
+                <div class="key" style="visibility: hidden;"></div>
+                <div class="key" onclick="pressKey('0')">0</div>
+                <div class="key" onclick="clearPin()" style="font-size: 1rem;">⌫</div>
+            </div>
+            <div class="error-msg" id="errorMsg"></div>
+        </div>
+
+        <!-- BAGIAN 2: KONTEN UTAMA & DIALOG GOMBAL -->
+        <div id="main-content">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Profile" class="avatar">
+            </div>
+            
+            <div class="text-box">
+                <h1 id="typing-text"></h1>
+            </div>
+
+            <div class="spotify-player">
+                <iframe style="border-radius:14px" src="https://open.spotify.com/embed/track/2FKvy1aWWazofWPRD9nNnP?utm_source=generator&theme=0" width="100%" height="75" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+
+            <div class="btn-container" id="buttons">
+                <div class="btn-group-row" id="btnGroup">
+                    <button class="btn" id="btn-yes" onclick="handleYes()">Mau banget 🥺</button>
+                    <button class="btn" id="btn-no" onclick="handleNo()">Enggak 😜</button>
+                </div>
+            </div>
+
+            <div id="hidden-success" class="hidden">
+                <p class="success-msg" id="success-text"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const correctPin = "143";
+        let enteredPin = "";
+        let clickNoCount = 0;
+
+        function pressKey(num) {
+            if (enteredPin.length < 3) {
+                enteredPin += num;
+                updatePinDisplay();
+
+                if (enteredPin.length === 3) {
+                    setTimeout(checkPin, 250);
+                }
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updatePinDisplay();
+            document.getElementById("errorMsg").textContent = "";
+        }
+
+        function updatePinDisplay() {
+            for (let i = 0; i < 3; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i < enteredPin.length) {
+                    dot.classList.add("filled");
+                } else {
+                    dot.classList.remove("filled");
+                }
+            }
+        }
+
+        function checkPin() {
+            if (enteredPin === correctPin) {
+                document.getElementById("lock-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+                startTypingFirst();
+            } else {
+                document.getElementById("errorMsg").textContent = "❌ PIN salah! Clue: 143";
+                setTimeout(() => {
+                    clearPin();
+                }, 800);
+            }
+        }
+
+        // Teks Gombalan Pertama
+        const text1 = "Apa bedanya kamu sama charger? Kalo charger tipe C, kalo kamu tipe aku🤭🤍";
+        let index1 = 0;
+
+        function startTypingFirst() {
+            if (index1 < text1.length) {
+                document.getElementById("typing-text").innerHTML += text1.charAt(index1);
+                index1++;
+                setTimeout(startTypingFirst, 40); 
+            }
+        }
+
+        // Kalau klik tombol "Enggak"
+        function handleNo() {
+            clickNoCount++;
+            if (clickNoCount === 1) {
+                document.getElementById("typing-text").innerHTML = "";
+                const text2 = "Yakin mau pilih enggak? Aku masih ada pantun lagi buat kamu lohh, yakin ga mau? 🥺";
+                let index2 = 0;
+                function typeSecond() {
+                    if (index2 < text2.length) {
+                        document.getElementById("typing-text").innerHTML += text2.charAt(index2);
+                        index2++;
+                        setTimeout(typeSecond, 35);
+                    }
+                }
+                typeSecond();
+                
+                document.getElementById("btn-no").innerText = "Ga mau 🤪";
+                document.getElementById("btn-yes").innerText = "Mau 🥺";
+            } else {
+                document.getElementById("btn-no").style.display = "none";
+                
+                document.getElementById("typing-text").innerHTML = "";
+                const text3 = "Ih dipaksa juga tetep harus pilih mau dong! Coba klik tombolnya sekarang 😆";
+                let index3 = 0;
+                function typeThird() {
+                    if (index3 < text3.length) {
+                        document.getElementById("typing-text").innerHTML += text3.charAt(index3);
+                        index3++;
+                        setTimeout(typeThird, 35);
+                    }
+                }
+                typeThird();
+            }
+        }
+
+        // Kalau klik tombol "Mau" / "Mau banget"
+        function handleYes() {
+            document.getElementById("buttons").style.display = "none";
+            
+            const successDiv = document.getElementById("hidden-success");
+            successDiv.classList.remove("hidden");
+            
+            // Teks tambahan sesuai permintaan & gombalan Yusuf / Sup
+            const finalJoke = "Ihh langsung mau yaudah deh i love youu 🤭🤍<br><br>Kenapa Yusuf dipanggilnya sup? <br><br><b>Karena I love you ya buat kamuuu!</b> 🍲✨";
+            document.getElementById("success-text").innerHTML = finalJoke;
+        }
+    </script>
+</body>
+</html>
